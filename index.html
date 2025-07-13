@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>План рассадки гостей</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        .tables-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .table {
+            border: 3px solid #4a90e2;
+            border-radius: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+        }
+        .table h3 {
+            text-align: center;
+            margin: 0 0 20px 0;
+            color: #4a90e2;
+            font-size: 1.3em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .seats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        .seat {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 8px 4px;
+            text-align: center;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .seat:hover {
+            background: #e3f2fd;
+            border-color: #4a90e2;
+            transform: translateY(-2px);
+        }
+        .seat.editable {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        .seat input {
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 0.9em;
+            width: 100%;
+            outline: none;
+        }
+        .legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #4a90e2;
+        }
+        .legend h4 {
+            margin-top: 0;
+            color: #333;
+        }
+        .legend-item {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .instructions {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        .print-button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        .print-button:hover {
+            background: #357abd;
+        }
+        @media print {
+            .print-button, .instructions { display: none; }
+            body { background: white; }
+            .container { box-shadow: none; }
+        }
+        @media (max-width: 768px) {
+            .tables-container {
+                grid-template-columns: 1fr;
+            }
+            .seats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 План рассадки гостей</h1>
+
+        <div class="instructions">
+            <strong>Инструкция:</strong> Кликните на любое место, чтобы изменить имя гостя. Используйте принципы рассадки из легенды ниже.
+        </div>
+
+        <div class="tables-container">
+            <!-- Стол 1 -->
+            <div class="table">
+                <h3>🍽️ Стол 1 - жениха</h3>
+                <div class="seats">
+                    <div class="seat" onclick="editSeat(this)">Наталья (мама жениха)</div>
+                    <div class="seat" onclick="editSeat(this)">Андрей (дядя жениха)</div>
+                    <div class="seat" onclick="editSeat(this)">Оксана (супруга Андрея)</div>
+                    <div class="seat" onclick="editSeat(this)">Сергей (дядя жениха)</div>
+                    <div class="seat" onclick="editSeat(this)">Елена (супруга Сергея)</div>
+                    <div class="seat" onclick="editSeat(this)">Вера (друг семьи)</div>
+                    <div class="seat" onclick="editSeat(this)">Алексей (сын Веры)</div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                </div>
+            </div>
+
+            <!-- Стол 2 -->
+            <div class="table">
+                <h3>🎓 Стол 2 - невесты</h3>
+                <div class="seats">
+                    <div class="seat" onclick="editSeat(this)">Вера</div>
+                    <div class="seat" onclick="editSeat(this)">Олег</div>
+                    <div class="seat" onclick="editSeat(this)">Александр</div>
+                    <div class="seat" onclick="editSeat(this)">Жора</div>
+                    <div class="seat" onclick="editSeat(this)">Инна</div>
+                    <div class="seat" onclick="editSeat(this)">Маша</div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                </div>
+            </div>
+
+            <!-- Стол 3 -->
+            <div class="table">
+                <h3>👨‍👩‍👧‍👦 Стол 3 </h3>
+                <div class="seats">
+                    <div class="seat" onclick="editSeat(this)">Татьяна (сестра Вадима)</div>
+                    <div class="seat" onclick="editSeat(this)">Любовь (тётя невесты)</div>
+                    <div class="seat" onclick="editSeat(this)">Надежда (бабушка невесты)</div>
+                    <div class="seat" onclick="editSeat(this)">Николай (дедушка невесты)</div>
+                    <div class="seat" onclick="editSeat(this)">Зинаида (бабушка невесты)</div>
+                    <div class="seat" onclick="editSeat(this)">Вадим (дедушка невесты)</div>
+                    <div class="seat" onclick="editSeat(this)">Людмила (прабабушка невесты)</div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                </div>
+            </div>
+
+            <!-- Стол 4 -->
+            <div class="table">
+                <h3>🎓 Стол 4 </h3>
+                <div class="seats">
+                    <div class="seat" onclick="editSeat(this)">Соня</div>
+                    <div class="seat" onclick="editSeat(this)">Артем</div>
+                    <div class="seat" onclick="editSeat(this)">Светлана</div>
+                    <div class="seat" onclick="editSeat(this)">Артем</div>
+                    <div class="seat" onclick="editSeat(this)">Марина</div>
+                    <div class="seat" onclick="editSeat(this)">Александр</div>
+                    <div class="seat" onclick="editSeat(this)">Дарья</div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                    <div class="seat" onclick="editSeat(this)"></div>
+                </div>
+            </div>
+
+            <!-- Стол 5 -->
+            <div class="table">
+                <h3>🎉 Стол 6</h3>
+                <div class="seats">
+                    <div class="seat" onclick="editSeat(this)">Елена</div>
+                    <div class="seat" onclick="editSeat(this)">Евгений</div>
+                    <div class="seat" onclick="editSeat(this)">Родион</div>
+                    <div class="seat" onclick="editSeat(this)">Маша</div>
+                    <div class="seat" onclick="editSeat(this)">Алина Азиз</div>
+                    <div class="seat" onclick="editSeat(this)">Алина Абил</div>
+                    <div class="seat" onclick="editSeat(this)">Турал Абил</div>
+                    <div class="seat" onclick="editSeat(this)">Диана</div>
+                    <div class="seat" onclick="editSeat(this)">Гор</div>
+                    <div class="seat" onclick="editSeat(this)">Иван</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Легенда -->
+        <div class="legend">
+            <h4>🧭 Легенда:</h4>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #fff3cd; border: 1px solid #ffc107;"></div>
+                <span>Редактируемое место</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e3f2fd; border: 1px solid #4a90e2;"></div>
+                <span>Выделение при наведении</span>
+            </div>
+
+            <button class="print-button" onclick="window.print()">🖨️ Распечатать план</button>
+        </div>
+    </div>
+
+    <script>
+        function editSeat(seat) {
+            const currentText = seat.textContent.trim();
+            seat.innerHTML = `<input type="text" value="${currentText}" onblur="saveSeat(this)" onkeypress="checkEnter(event, this)">`;
+            const input = seat.querySelector('input');
+            input.focus();
+            input.select();
+        }
+
+        function saveSeat(input) {
+            const seat = input.parentElement;
+            seat.textContent = input.value || 'Пустое место';
+        }
+
+        function checkEnter(event, input) {
+            if (event.key === 'Enter') {
+                input.blur();
+            }
+        }
+
+        window.addEventListener('load', function () {
+            const seats = document.querySelectorAll('.seat');
+            seats.forEach((seat, index) => {
+                seat.style.opacity = '0';
+                seat.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    seat.style.transition = 'all 0.3s ease';
+                    seat.style.opacity = '1';
+                    seat.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
+        });
+    </script>
+</body>
+</html>
